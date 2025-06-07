@@ -2,8 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import HomePage from './pages/HomePage';
+import LoginPage from './pages/LoginPage';
 // Comment out missing imports
-// import LoginPage from './pages/LoginPage';
 // import CVSubmissionPage from './pages/CVSubmissionPage';
 // import InterviewSchedulerPage from './pages/InterviewSchedulerPage';
 // import InterviewDashboardPage from './pages/InterviewDashboardPage';
@@ -21,8 +21,8 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
             {/* Comment out routes for missing components */}
-            {/* <Route path="/login" element={<LoginPage />} /> */}
             {/* <Route path="/cv-submission" element={<CVSubmissionPage />} /> */}
             {/* <Route path="/scheduler" element={<InterviewSchedulerPage />} /> */}
             {/* <Route path="/dashboard" element={<InterviewDashboardPage />} /> */}

@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 
 const HomePage = () => {
   const [selectedField, setSelectedField] = useState('');
+  const [hoveredStep, setHoveredStep] = useState(null);
+  const stepRefs = useRef([]);
   
   const fields = [
     'Software Engineering',
@@ -44,6 +46,58 @@ const HomePage = () => {
       image: 'https://randomuser.me/api/portraits/men/4.jpg'
     },
   ];
+
+  const timelineSteps = [
+    {
+      title: 'CV Submission',
+      desc: 'Upload your resume and fill out your application.',
+      more: 'Tip: Tailor your CV to the job description and highlight relevant skills and achievements. Double-check for typos and ensure your contact information is up to date.'
+    },
+    {
+      title: 'Application Review',
+      desc: 'Recruiters screen your application for fit.',
+      more: 'Recruiters look for keywords, relevant experience, and alignment with company values. Automated systems may be used for initial screening.'
+    },
+    {
+      title: 'Online Assessment',
+      desc: 'Complete coding or aptitude tests online.',
+      more: 'These assessments may include coding challenges, logical reasoning, or personality tests. Practice beforehand to improve your speed and accuracy.'
+    },
+    {
+      title: 'Recruiter Screening',
+      desc: 'Initial call to discuss your background and interests.',
+      more: 'Be ready to talk about your experience, motivation, and what you know about the company. This is also a chance to ask questions about the role.'
+    },
+    {
+      title: 'Technical Interview(s)',
+      desc: 'Solve coding problems and discuss solutions with engineers.',
+      more: 'Expect whiteboard or online coding, algorithm questions, and technical discussions. Communicate your thought process clearly.'
+    },
+    {
+      title: 'System Design',
+      desc: 'Demonstrate your ability to design scalable systems.',
+      more: 'You may be asked to design a system or architecture. Focus on scalability, reliability, and trade-offs. Use diagrams if possible.'
+    },
+    {
+      title: 'Behavioral Interview',
+      desc: 'Showcase your soft skills and cultural fit.',
+      more: 'Use the STAR method (Situation, Task, Action, Result) to answer behavioral questions. Highlight teamwork, leadership, and problem-solving.'
+    },
+    {
+      title: 'Final Interview / Offer',
+      desc: 'Meet with leadership and receive your offer!',
+      more: 'This may include final discussions with senior leaders or HR. Review your offer carefully and ask about next steps.'
+    },
+  ];
+
+  // Handler to get the position of the hovered step
+  const handleMouseEnter = (idx) => {
+    setHoveredStep(idx);
+  };
+
+  const handleMouseLeave = () => {
+    setHoveredStep(null);
+  };
 
   return (
     <div className="animate-fadeIn">
@@ -116,6 +170,66 @@ const HomePage = () => {
               <p className="text-gray-600">Track your progress and identify areas for improvement with detailed analytics.</p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Timeline Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Heading and description at the very top */}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Interview Process Timeline</h2>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">Understand each step from submitting your CV to landing your offer. Here's what the typical process looks like:</p>
+          </div>
+          <div className="flex flex-col md:flex-row relative">
+            {/* Timeline on the extreme left */}
+            <div className="relative w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:pr-8 timeline-steps-container" style={{minHeight: 500}}>
+              <div className="relative">
+                {/* Vertical line */}
+                <div className="absolute left-6 top-0 h-full w-1 bg-gradient-to-b from-primary-300 to-secondary-300"></div>
+                <ol className="relative space-y-12 ml-5">
+                  {timelineSteps.map((step, idx) => (
+                    <li
+                      key={idx}
+                      ref={el => stepRefs.current[idx] = el}
+                      className="flex items-start relative group transition-all duration-300 hover:shadow-elegant hover:bg-primary-50 rounded-xl p-4 cursor-pointer"
+                      onMouseEnter={() => handleMouseEnter(idx)}
+                      onMouseLeave={handleMouseLeave}
+                    >
+                      <div className="z-10 w-12 h-12 flex items-center justify-center bg-primary-100 text-primary-600 rounded-full font-bold border-2 border-primary-300 mr-6 transition-transform duration-300 group-hover:scale-110 group-hover:shadow-lg">
+                        {idx + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-semibold text-dark mb-1">{step.title}</h4>
+                        <p className="text-gray-600 text-sm">{step.desc}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+                {/* Info panel for hovered step (desktop only) */}
+                {hoveredStep !== null && stepRefs.current[hoveredStep] && (
+                  <div
+                    className="hidden md:block absolute left-full ml-8 w-80 bg-primary-50 rounded-xl shadow-elegant p-6 transition-all duration-300 z-20"
+                    style={{
+                      top: stepRefs.current[hoveredStep].offsetTop,
+                    }}
+                  >
+                    <h4 className="font-semibold text-primary-700 mb-2">Learn more</h4>
+                    <p className="text-primary-700 text-sm">{timelineSteps[hoveredStep].more}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+            {/* Empty right side for layout balance */}
+            <div className="flex-1"></div>
+          </div>
+          {/* Info panel for hovered step (mobile fallback) */}
+          {hoveredStep !== null && (
+            <div className="block md:hidden mt-4 bg-primary-50 rounded-xl shadow-elegant p-6 transition-all duration-300">
+              <h4 className="font-semibold text-primary-700 mb-2">Learn more</h4>
+              <p className="text-primary-700 text-sm">{timelineSteps[hoveredStep].more}</p>
+            </div>
+          )}
         </div>
       </section>
 

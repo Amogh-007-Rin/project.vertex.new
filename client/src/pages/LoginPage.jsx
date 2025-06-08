@@ -86,6 +86,9 @@ const LoginPage = () => {
               {isLogin ? 'create a new account' : 'sign in'}
             </button>
           </p>
+          <span className="block text-gray-500 text-sm mt-1">
+            Or <Link to="/contact" className="text-primary-600 hover:text-primary-500 no-underline">contact us</Link> for help
+          </span>
         </div>
         
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

@@ -6,7 +6,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-lg font-semibold mb-4">InterviewPro</h3>
+            <h3 className="text-lg font-semibold mb-4">Vertex</h3>
             <p className="text-gray-300">Prepare for your dream job with AI-powered mock interviews tailored for FAANG companies.</p>
           </div>
           <div>
@@ -27,7 +27,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="mt-8 pt-8 border-t border-gray-700 text-center text-gray-300">
-          <p>&copy; {new Date().getFullYear()} InterviewPro. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Vertex. All rights reserved.</p>
         </div>
       </div>
     </footer>

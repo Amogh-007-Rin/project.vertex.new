@@ -122,10 +122,131 @@ const HomePage = () => {
             </div>
           </div>
         </div>
-        
         {/* Floating Elements Animation */}
         <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-primary-400/30 rounded-full filter blur-3xl animate-pulse-slow"></div>
         <div className="absolute top-10 -right-10 w-40 h-40 bg-secondary-400/30 rounded-full filter blur-3xl animate-pulse-slow"></div>
+      </section>
+
+      <style>
+        {`
+          @keyframes spin360 {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .spin-360-infinite {
+            display: inline-block;
+            animation: spin360 3s linear infinite;
+          }
+          @keyframes spin360group {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+          .spin-360-group {
+            animation: spin360group 8s linear infinite;
+            position: relative;
+            width: 90vw;
+            max-width: 500px;
+            height: 220px;
+            margin: 0 auto;
+          }
+          .company-ellipse-item {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform-origin: center center;
+            white-space: nowrap;
+            transition: opacity 0.3s, transform 0.3s;
+            will-change: transform, opacity;
+          }
+          @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+          }
+          .marquee-container {
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+            background: #fff;
+            padding: 24px 0;
+          }
+          .marquee-track {
+            display: flex;
+            width: max-content;
+            animation: marquee 18s linear infinite;
+          }
+          .marquee-item {
+            flex: none;
+            margin: 0 2.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #333;
+            opacity: 0.8;
+            letter-spacing: 0.5px;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+          }
+          .marquee-item:hover {
+            opacity: 1;
+          }
+        `}
+      </style>
+      {/* Companies Showcase Section */}
+      <section className="bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <h2 className="mt-12 text-2xl md:text-3xl font-bold text-dark mb-2">
+              We mimic the interview process of the world's top tech companies
+            </h2>
+            <p className="text-md text-gray-600 max-w-2xl mx-auto">
+              Practice for interviews at companies like:
+            </p>
+          </div>
+          <div className="marquee-container">
+            <div className="marquee-track">
+              {(() => {
+                const companies = [
+                  { name: 'Microsoft', logo: 'https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg' },
+                  { name: 'NVIDIA', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/21/Nvidia_logo.svg' },
+                  { name: 'Apple', logo: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg' },
+                  { name: 'Amazon', logo: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg' },
+                  { name: 'Google', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg' },
+                  { name: 'Meta (Facebook)', logo: 'https://1000logos.net/wp-content/uploads/2021/10/Meta-Logo.png' },
+                  { name: 'Broadcom', logo: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Broadcom_Logo.svg' },
+                  { name: 'TSMC', logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/TSMC.svg/1200px-TSMC.svg.png' },
+                  { name: 'Tesla', logo: 'https://upload.wikimedia.org/wikipedia/commons/e/e8/Tesla_logo.png' },
+                  { name: 'Tencent', logo: 'https://brandlogos.net/wp-content/uploads/2022/07/tencent-logo_brandlogos.net_3v7ta.png' },
+                  { name: 'Samsung Electronics', logo: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Samsung_Logo.svg' },
+                  { name: 'Foxconn', logo: 'https://logo.clearbit.com/honhai.com' },
+                  { name: 'Jingdong', logo: 'https://logo.clearbit.com/jd.com' },
+                  { name: 'Alibaba', logo: 'https://logo.clearbit.com/alibaba.com' },
+                  { name: 'AT&T', logo: 'https://logo.clearbit.com/att.com' },
+                ];
+                // Duplicate the list for seamless looping
+                const marqueeList = companies.concat(companies);
+                return marqueeList.map((company, idx) => {
+                  // Larger size for specific companies
+                  const largeLogos = ['Amazon', 'Google', 'Meta (Facebook)', 'NVIDIA', 'Samsung Electronics'];
+                  const isLarge = largeLogos.includes(company.name);
+                  return (
+                    <span
+                      key={company.name + idx}
+                      className="marquee-item flex items-center justify-center"
+                    >
+                      <span className="flex items-center justify-center h-14 w-14 bg-white rounded-full p-2 shadow" style={{minWidth: 56, minHeight: 56}}>
+                        <img
+                          src={company.logo}
+                          alt={company.name + ' logo'}
+                          className="object-contain"
+                          style={isLarge ? { maxWidth: 48, maxHeight: 48 } : { maxWidth: 40, maxHeight: 40 }}
+                        />
+                      </span>
+                    </span>
+                  );
+                });
+              })()}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Features Section */}
@@ -135,7 +256,6 @@ const HomePage = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Why Choose InterviewPro?</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">Our platform offers everything you need to prepare for technical interviews at top companies.</p>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Feature 1 */}
             <div className="glass p-8 rounded-2xl hover:shadow-elegant transition-all duration-300 transform hover:-translate-y-2">
@@ -147,7 +267,6 @@ const HomePage = () => {
               <h3 className="text-xl font-semibold text-dark mb-3">AI-Powered Interviews</h3>
               <p className="text-gray-600">Our advanced AI simulates real interview scenarios with personalized feedback.</p>
             </div>
-            
             {/* Feature 2 */}
             <div className="glass p-8 rounded-2xl hover:shadow-elegant transition-all duration-300 transform hover:-translate-y-2">
               <div className="w-14 h-14 bg-secondary-100 rounded-xl flex items-center justify-center mb-6">
@@ -158,7 +277,6 @@ const HomePage = () => {
               <h3 className="text-xl font-semibold text-dark mb-3">Company-Specific Questions</h3>
               <p className="text-gray-600">Practice with questions tailored to the specific companies you're applying to.</p>
             </div>
-            
             {/* Feature 3 */}
             <div className="glass p-8 rounded-2xl hover:shadow-elegant transition-all duration-300 transform hover:-translate-y-2">
               <div className="w-14 h-14 bg-primary-100 rounded-xl flex items-center justify-center mb-6">
@@ -176,16 +294,13 @@ const HomePage = () => {
       {/* Timeline Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Heading and description at the very top */}
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Interview Process Timeline</h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">Understand each step from submitting your CV to landing your offer. Here's what the typical process looks like:</p>
           </div>
           <div className="flex flex-col md:flex-row relative">
-            {/* Timeline on the extreme left */}
             <div className="relative w-full md:w-1/2 lg:w-1/3 xl:w-1/4 md:pr-8 timeline-steps-container" style={{minHeight: 500}}>
               <div className="relative">
-                {/* Vertical line */}
                 <div className="absolute left-6 top-0 h-full w-1 bg-gradient-to-b from-primary-300 to-secondary-300"></div>
                 <ol className="relative space-y-12 ml-5">
                   {timelineSteps.map((step, idx) => (
@@ -220,7 +335,6 @@ const HomePage = () => {
                 )}
               </div>
             </div>
-            {/* Empty right side for layout balance */}
             <div className="flex-1"></div>
           </div>
           {/* Info panel for hovered step (mobile fallback) */}
@@ -240,7 +354,6 @@ const HomePage = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Success Stories</h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">Hear from candidates who landed their dream jobs after practicing with InterviewPro.</p>
           </div>
-          
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {testimonials.map((testimonial) => (
               <div key={testimonial.id} className="bg-light p-8 rounded-2xl shadow-soft hover:shadow-elegant transition-all duration-300">

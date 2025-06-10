@@ -3,13 +3,18 @@ const cors = require('cors');
 const app = express();
 const port = 5000;
 
-// Add middleware
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Add a simple test route
+// Existing test route
 app.get('/api', (req, res) => {
   res.json({ message: 'Welcome to the InterviewPro API' });
+});
+
+// ✅ New Hello World route
+app.get('/hello', (req, res) => {
+  res.send('Hello, World!');
 });
 
 // Start the server

@@ -9,7 +9,7 @@ app.use(express.json());
 
 // Existing test route
 app.get('/api', (req, res) => {
-  res.json({ message: 'Welcome to the InterviewPro API' });
+  res.json({ message: 'Welcome to the Vertex API' });
 });
 
 // ✅ New Hello World route

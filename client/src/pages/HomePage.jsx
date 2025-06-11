@@ -1,6 +1,8 @@
 import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
+import { useEffect} from 'react';
+import { anime } from "animejs";
 
 const HomePage = () => {
   const [selectedField, setSelectedField] = useState('');
@@ -347,6 +349,9 @@ const HomePage = () => {
         </div>
       </section>
 
+      {/* Animated AI Face */}
+      <AnimatedAIFace />
+
       {/* Testimonials Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -390,3 +395,30 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+function AnimatedAIFace() {
+  const pathRef = useRef(null);
+  useEffect(() => {
+    if (pathRef.current) {
+      anime({
+        targets: pathRef.current,
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: 'easeInOutSine',
+        duration: 2000,
+        direction: 'alternate',
+        loop: true,
+      });
+    }
+  }, []);
+  return (
+    <div className="flex justify-center mb-12">
+      <svg width="120" height="120" viewBox="0 0 120 120">
+        <circle cx="60" cy="60" r="50" fill="#f0f4ff" stroke="#3b82f6" strokeWidth="4" />
+        <ellipse cx="45" cy="55" rx="7" ry="10" fill="#fff" stroke="#3b82f6" strokeWidth="2" />
+        <ellipse cx="75" cy="55" rx="7" ry="10" fill="#fff" stroke="#3b82f6" strokeWidth="2" />
+        <path ref={pathRef} d="M45 80 Q60 95 75 80" fill="none" stroke="#3b82f6" strokeWidth="3" strokeLinecap="round"/>
+      </svg>
+    </div>
+  );
+}

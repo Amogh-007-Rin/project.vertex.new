@@ -2,7 +2,6 @@ import { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import Button from '../components/Button';
 import { useEffect} from 'react';
-import { anime } from "animejs";
 
 const HomePage = () => {
   const [selectedField, setSelectedField] = useState('');
@@ -349,8 +348,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Animated AI Face */}
-      <AnimatedAIFace />
 
       {/* Testimonials Section */}
       <section className="py-20 bg-white">
